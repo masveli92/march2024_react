@@ -10,6 +10,7 @@ import CustomErrorLayout from "./layouts/CustomErrorLayout";
 import HomePage from "./pages/HomePage";
 import TodosPage from "./pages/TodosPage";
 import TodoPage from "./pages/TodoPage";
+import UserPage from "./pages/UserPage";
 
 
 const root = ReactDOM.createRoot(
@@ -22,7 +23,11 @@ let router = createBrowserRouter([
         errorElement: <CustomErrorLayout/>,
         children: [
             {index:true, element: <HomePage/>},
-            {path:'users', element: <UsersPage/>},
+            {path:'users', element: <UsersPage/>,
+            //     children:[
+            //         {path:':id', element: <UserPage/>}]
+            },
+            {path:'users/:id', element: <UserPage/>},
             {path:'posts', element: <PostsPage/>},
             {path:'todos', element: <TodosPage/>, children:[
                     {path:':id', element: <TodoPage/>}

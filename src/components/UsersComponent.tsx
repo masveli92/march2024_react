@@ -1,7 +1,20 @@
-const UsersComponent = () => {
+import {IUser} from "../models/IUser";
+import {FC} from "react";
+import UsersListComponent from "./UsersListComponent";
+
+
+interface IProps{
+    users: IUser[]
+}
+
+const UsersComponent: FC<IProps> = ({users}) => {
+
+
     return (
         <div>
-            UsersComponent
+            {
+                users.map(user => (<UsersListComponent key={user.id}  user={user}/>))
+            }
         </div>
     );
 };
