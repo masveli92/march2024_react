@@ -1,7 +1,7 @@
 import {IPost} from "../models/IPost";
-import {FC} from "react";
+import {FC, PropsWithChildren} from "react";
 
-interface IProps {
+interface IProps extends PropsWithChildren{
     post: IPost
 }
 

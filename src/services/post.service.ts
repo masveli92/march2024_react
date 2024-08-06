@@ -1,10 +1,11 @@
 import axiosService from "./axios.service";
 import {urls} from "../configs/urls";
-import {IFormProps} from "../components/PostFormComponent";
+import {IRes} from "../types/resType";
 import {IPost} from "../models/IPost";
 
+
 const postService = {
-    getAll:() => axiosService.get(urls.posts),
-    create:(post:IFormProps) => axiosService.post(urls.posts, post)
+    getAll:():IRes<IPost[]> => axiosService.get(urls.posts),
+    create:(data:IPost):IRes<IPost> => axiosService.post(urls.posts, data)
 }
 export {postService}

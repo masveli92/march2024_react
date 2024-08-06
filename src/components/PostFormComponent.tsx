@@ -1,33 +1,26 @@
-import {useForm} from "react-hook-form"
+import {SubmitHandler, useForm} from "react-hook-form"
 import {IPost} from "../models/IPost";
-import {FC, useState} from "react";
+import {FC, PropsWithChildren} from "react";
 import {postService} from "../services/post.service";
+import {ISetState} from "../types/resType";
 
-export interface IFormProps {
-    title: string,
-    body: string,
-    userId: number
+interface IProps extends PropsWithChildren{
+    setTrigger:ISetState<boolean>
 }
 
-const PostFormComponent: FC = ( ) => {
-    let {
-        register,
-        handleSubmit,
-        formState: {errors, isValid}
-    } = useForm<IFormProps>({
+const PostFormComponent: FC<IProps> = ({setTrigger} ) => {
+    const {register,handleSubmit,reset,formState: {isValid}} = useForm<IPost>({
         mode: "all"
     })
 
-    const[post, setPost] = useState<IPost|null>(null)
-
-    const postSender = (post:IFormProps) => {
-        postService.create(post)
-            .then(value => setPost(value.data))
+    const postSender: SubmitHandler<IPost> = async (post) => {
+       await postService.create(post)
+        setTrigger(prevState => !prevState)
+        reset()
     };
 
     return (
         <div>
-            {post && <h2> saved post: <br/> ID: {post.id} <br/> TITLE: {post.title} </h2>}
             <form onSubmit={handleSubmit(postSender)}>
                 <input type="text" placeholder={'title'} {...register('title')}/>
                 <br/>

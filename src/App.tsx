@@ -1,11 +1,18 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import './App.css';
 import PostsComponent from "./components/PostsComponent";
+import PostFormComponent from "./components/PostFormComponent";
 
-const App: FC = () => {
+
+const App = () => {
+
+    const [trigger, setTrigger] = useState<boolean>(false)
+
   return (
     <>
-        <PostsComponent/>
+        <PostFormComponent setTrigger={setTrigger}/>
+        <hr/>
+        <PostsComponent trigger = {trigger}/>
     </>
   );
 }
